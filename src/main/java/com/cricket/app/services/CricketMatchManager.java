@@ -12,7 +12,7 @@ public class CricketMatchManager {
     
     MatchState state = new MatchState();
     
-    public void updateRuns(MatchEvent matchEvent) {
+    public synchronized void updateRuns(MatchEvent matchEvent) {
         
         //Find current team state
         TeamState battingTeamState = getBattingTeamState(matchEvent);
@@ -48,7 +48,7 @@ public class CricketMatchManager {
     }
     
     
-    public void updateWicket(MatchEvent matchEvent) {
+    public synchronized void updateWicket(MatchEvent matchEvent) {
         
         
         //Find current team state

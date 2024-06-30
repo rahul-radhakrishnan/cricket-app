@@ -7,7 +7,7 @@ public enum Messages {
     
     // This enum can be used for having log messages
     
-    ERROR("Error");
+    SOCKET_BIND_ERROR("Port already in use error");
 
 
     /**
