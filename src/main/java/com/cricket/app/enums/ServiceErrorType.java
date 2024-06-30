@@ -10,7 +10,8 @@ public enum ServiceErrorType {
      * Service level errors
      */
     UNDEFINED_ERROR("000", "Undefined error, check everything"),
-    ERROR("001", "Error");
+    ERROR("001", "Error"),
+    MAPPER_ERROR("002", "Object mapper exception");
     
     
     /**

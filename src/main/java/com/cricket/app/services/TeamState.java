@@ -6,6 +6,9 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  This class holds the Teams state at any point.
+ */
 @Data
 public class TeamState {
     

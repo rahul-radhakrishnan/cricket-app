@@ -23,12 +23,12 @@ public class CricketMatchManager {
         //BallState ballState = perBallStats.getOrDefault(matchEvent.getBall(), new BallState());
         BallState ballState = perBallStats.get(matchEvent.getBall());
         
-        if(ballState == null) {
+        if (ballState == null) {
             ballState = new BallState();
             //Update runs by removing any old entry. Helps in replay corrections
             int ballStateWithoutCurrentBall = battingTeamState.getTotalRuns() - ballState.getRun();
             battingTeamState.setTotalRuns(ballStateWithoutCurrentBall + matchEvent.getRun());
-    
+            
             perBallStats.put(matchEvent.getBall(), ballState);
         }
         updateLastBall(battingTeamState, matchEvent.getBall());
@@ -61,11 +61,11 @@ public class CricketMatchManager {
         if (ballState == null) {
             ballState = new BallState();
             int wicketCountInBall = matchEvent.isOut() ? 1 : 0;
-    
+            
             //Update runs by removing any old entry. Helps in replay corrections
             int wicketStateWithoutCurrentBall = battingTeamState.getTotalWickets() - ballState.getWicket();
             battingTeamState.setTotalWickets(wicketStateWithoutCurrentBall + wicketCountInBall);
-    
+            
             perBallStats.put(matchEvent.getBall(), ballState);
         }
         updateLastBall(battingTeamState, matchEvent.getBall());
@@ -86,7 +86,7 @@ public class CricketMatchManager {
         /*logger.info("Overs " + teamState.getLastBall() + " " +
                                    teamState.getTeam() + " : " + teamState.getTotalRuns() + "/" +
                                    teamState.getTotalWickets());*/
-
+        
         System.out.println(teamState.getTeam() + " is " + teamState.getTotalRuns() + "/" +
                                    teamState.getTotalWickets() + " after " + teamState.getLastBall());
         //teamX is 2/0 after 0.1 overs

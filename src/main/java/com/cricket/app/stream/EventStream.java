@@ -2,7 +2,10 @@ package com.cricket.app.stream;
 
 import com.cricket.app.Event;
 import com.cricket.app.exceptions.ServiceException;
-import com.cricket.app.listener.StreamListerner;
+import com.cricket.app.listener.RunStreamListener;
+import com.cricket.app.listener.StreamListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +17,10 @@ import java.util.List;
  */
 public abstract class EventStream {
     
-    List<StreamListerner> listeners = new LinkedList<>();
+    private static final Logger logger = LoggerFactory.getLogger(EventStream.class);
+    
+    
+    List<StreamListener> listeners = new LinkedList<>();
     
     /**
      * Description:
@@ -28,7 +34,6 @@ public abstract class EventStream {
     public abstract void destroy() throws ServiceException;
     
     
-    
     /**
      * Description:
      *
@@ -36,11 +41,18 @@ public abstract class EventStream {
      * @throws ServiceException
      */
     
-    public void registerListener(StreamListerner listener) {
+    public void registerListener(StreamListener listener) {
         listeners.add(listener);
     }
     
     public void fireEvent(Event event) {
-        listeners.forEach(listerner -> listerner.handle(event));
+        listeners.forEach(listerner -> {
+            try {
+                listerner.handle(event);
+            } catch (ServiceException e) {
+                logger.error(e.getMessage(), e);
+            }
+        });
+        
     }
 }
